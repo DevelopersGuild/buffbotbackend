@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Wit = require('node-wit').Wit;
-const session = '';
+const session = 'my-user-session-42';
 const actions = {
   say(sessionId, context, message, cb) {
     console.log(message);
@@ -26,26 +26,23 @@ router.get('/', function(req, res, next) {
 	client.message(req.query.message, context, (error, data) => {
 	  if (error) {
 	    console.log('Oops! Got an error: ' + error);
-	    res.json(response);
 	  } else {
 	    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
-	    sessionId = data.msg_id;
 	    response.first = data;
-	    client.converse(sessionId, , {}, (error, data) => {
-		  if (error) {
-		    console.log('Oops! Got an error: ' + error);
-		    res.json(response);
-		  } else {
-		    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
-		    reponse.second = data;
-		    res.json(response);
-		  }
-		});
 	  }
 	});
 
+	client.converse(session, req.query.message, context, (error, data) => {
+	  if (error) {
+	    console.log('Oops! Got an error: ' + error);
+	    res.json(response);
+	  } else {
+	    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
+	    reponse.second = data;
+	  }
+	});
 	
-
+	res.json(response);
   	// res.send(req.query.message);
   	// res.render("index",{"title": req.body.message})
 });
