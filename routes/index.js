@@ -36,7 +36,7 @@ router.get('/', function(req, res, next) {
 		  } else {
 		    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
 		    reponse.second = data;
-		    res.json(data);
+		    res.json(response);
 		  }
 		});
 	  }
