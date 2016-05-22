@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 	    console.log('Oops! Got an error: ' + error);
 	  } else {
 	    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
-	    res.JSON(data)
+	    res.json(data)
 	  }
 	});
   	// res.send(req.query.message);
