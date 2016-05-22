@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
 	    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
 	    sessionId = data.msg_id;
 	    response.first = data;
-	    client.converse(sessionId, req.query.message, {}, (error, data) => {
+	    client.converse(sessionId, , {}, (error, data) => {
 		  if (error) {
 		    console.log('Oops! Got an error: ' + error);
 		    res.json(response);
