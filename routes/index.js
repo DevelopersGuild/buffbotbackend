@@ -21,7 +21,7 @@ const client = new Wit("NCBWVKHN3ZEVOFCFAG5CFUA5MKZB6VNO", actions);
 router.get('/', function(req, res, next) {
 	console.log(req.query.message);
 	const context = {};
-	client.converse(req.query.message, context, (error, data) => {
+	client.message(req.query.message, context, (error, data) => {
 	  if (error) {
 	    console.log('Oops! Got an error: ' + error);
 	  } else {
