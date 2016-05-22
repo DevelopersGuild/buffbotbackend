@@ -26,6 +26,7 @@ router.get('/', function(req, res, next) {
 	client.message(req.query.message, context, (error, data) => {
 	  if (error) {
 	    console.log('Oops! Got an error: ' + error);
+	    res.json(response);
 	  } else {
 	    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
 	    sessionId = data.msg_id;
@@ -33,6 +34,7 @@ router.get('/', function(req, res, next) {
 	    client.converse(sessionId, req.query.message, {}, (error, data) => {
 		  if (error) {
 		    console.log('Oops! Got an error: ' + error);
+		    res.json(response);
 		  } else {
 		    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
 		    reponse.second = data;
