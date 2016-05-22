@@ -29,19 +29,19 @@ router.get('/', function(req, res, next) {
 	  } else {
 	    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
 	    response.first = data;
+	    client.converse(session, req.query.message, context, (error, data) => {
+		  if (error) {
+		    console.log('Oops! Got an error: ' + error);
+		    res.json(response);
+		  } else {
+		    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
+		    reponse.second = data;
+		    res.json(response);
+		  }
+		});
 	  }
 	});
 
-	client.converse(session, req.query.message, context, (error, data) => {
-	  if (error) {
-	    console.log('Oops! Got an error: ' + error);
-	    res.json(response);
-	  } else {
-	    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
-	    reponse.second = data;
-	  }
-	});
-	
 	res.json(response);
   	// res.send(req.query.message);
   	// res.render("index",{"title": req.body.message})
