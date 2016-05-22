@@ -21,23 +21,28 @@ const client = new Wit("NCBWVKHN3ZEVOFCFAG5CFUA5MKZB6VNO", actions);
 
 router.get('/', function(req, res, next) {
 
+	var response = {};
+
 	client.message(req.query.message, context, (error, data) => {
 	  if (error) {
 	    console.log('Oops! Got an error: ' + error);
 	  } else {
 	    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
 	    sessionId = data.msg_id;
-	    res.json(data)
+	    response.first = data;
+	    client.converse(sessionId, req.query.message, {}, (error, data) => {
+		  if (error) {
+		    console.log('Oops! Got an error: ' + error);
+		  } else {
+		    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
+		    reponse.second = data;
+		    res.json(data);
+		  }
+		});
 	  }
 	});
 
-	client.converse(sessionId, req.query.message, {}, (error, data) => {
-	  if (error) {
-	    console.log('Oops! Got an error: ' + error);
-	  } else {
-	    console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
-	  }
-	});
+	
 
   	// res.send(req.query.message);
   	// res.render("index",{"title": req.body.message})
